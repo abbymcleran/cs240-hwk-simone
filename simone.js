@@ -50,7 +50,7 @@ green.addEventListener("mouseover", function() {
     green.style.border = "solid #eeeeee .5px";
 });
 green.addEventListener("mouseout", function(){
-    // take away border
+    green.style.border = null;
 });
 
 let blue = document.querySelector("div[class='blue']");
@@ -65,6 +65,9 @@ blue.addEventListener("mouseup", function(){
 blue.addEventListener("mouseover", function() {
     blue.style.border = "solid #eeeeee .5px";
 });
+blue.addEventListener("mouseout", function(){
+    blue.style.border = null;
+});
 
 let yellow = document.querySelector("div[class='yellow']");
 yellow.addEventListener("mousedown", function() {
@@ -78,6 +81,9 @@ yellow.addEventListener("mouseup", function(){
 yellow.addEventListener("mouseover", function() {
     yellow.style.border = "solid #eeeeee .5px";
 });
+yellow.addEventListener("mouseout", function(){
+    yellow.style.border = null;
+});
 
 let red = document.querySelector("div[class='red']");
 red.addEventListener("mousedown", function() {
@@ -90,6 +96,9 @@ red.addEventListener("mouseup", function(){
 });
 red.addEventListener("mouseover", function() {
     red.style.border = "solid #eeeeee .5px";
+});
+red.addEventListener("mouseout", function(){
+    red.style.border = null;
 });
 
 
