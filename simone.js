@@ -26,7 +26,9 @@ let wrongSound = new Audio("sounds/wrong.wav");
 let playButton = document.querySelector("button[id='play']")
 playButton.addEventListener("click", function(){
     roundsInput = rounds.innerHTML;
-    // intro sequence plays
+    // make an api request for greeting sequence
+    // greeting sequence plays
+    // make an api request for solution sequence
     // game starts        
 })
 
@@ -36,37 +38,58 @@ playButton.addEventListener("click", function(){
 // stuff below should only run when game is being played, so figure out a
 // way to make that possible (maybe put in gamePlay function)
 let green = document.querySelector("div[class='green']");
-green.addEventListener("mouseDown", function() {
-    // green.style.backgroundColor = lightgreen;
-    // glows and makes a noise
+green.addEventListener("mousedown", function() {
+    green.style.backgroundColor = "lightgreen";
 });
-green.addEventListener("mouseOver", function() {
-    // green.style.borderColor = "white";
-    // puts a border around the object
+green.addEventListener("mouseup", function(){
+    greenSound.play();
+    guessSequence.push("g");
+    green.style.backgroundColor = "forestgreen";
+});
+green.addEventListener("mouseover", function() {
+    green.style.border = "solid #eeeeee .5px";
+});
+green.addEventListener("mouseout", function(){
+    // take away border
 });
 
 let blue = document.querySelector("div[class='blue']");
-blue.addEventListener("click", function() {
-    // glows and makes a noise
+blue.addEventListener("mousedown", function() {
+    blue.style.backgroundColor = "lightblue";
 });
-blue.addEventListener("mouseOver", function() {
-    // puts a border around the object
+blue.addEventListener("mouseup", function(){
+    blueSound.play();
+    guessSequence.push("b");
+    blue.style.backgroundColor = "#0000bb";
+});
+blue.addEventListener("mouseover", function() {
+    blue.style.border = "solid #eeeeee .5px";
 });
 
 let yellow = document.querySelector("div[class='yellow']");
-yellow.addEventListener("click", function() {
-    // glows and makes a noise
+yellow.addEventListener("mousedown", function() {
+    yellow.style.backgroundColor = "yellow";
 });
-yellow.addEventListener("mouseOver", function() {
-    // puts a border around the object
+yellow.addEventListener("mouseup", function(){
+    yellowSound.play();
+    guessSequence.push("y");
+    yellow.style.backgroundColor = "goldenrod";
+});
+yellow.addEventListener("mouseover", function() {
+    yellow.style.border = "solid #eeeeee .5px";
 });
 
 let red = document.querySelector("div[class='red']");
-red.addEventListener("click", function() {
-    // glows and makes a noise
+red.addEventListener("mousedown", function() {
+    red.style.backgroundColor = "hotpink";
 });
-red.addEventListener("mouseOver", function() {
-    // puts a border around the object
+red.addEventListener("mouseup", function(){
+    redSound.play();
+    guessSequence.push("r");
+    red.style.backgroundColor = "#ff0000";
+});
+red.addEventListener("mouseover", function() {
+    red.style.border = "solid #eeeeee .5px";
 });
 
 
@@ -74,7 +97,7 @@ red.addEventListener("mouseOver", function() {
 
 // arrays for the game
 let roundSequence = [];
-let guessSequence = [];
+let guessSequence = []; // needs to be reset at beginning of each round
 
 
 
