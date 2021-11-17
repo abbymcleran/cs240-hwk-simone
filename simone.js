@@ -1,10 +1,6 @@
-// use api to play intro when webpage is loaded up
-// make functions that play the corresponding noise and light up when buttons are pressed
-// make buttons that light up when hovered over
-// have something that reads the sequence from the api
-    // calls to apis have to be done asynchronously (use promises)
-    // converting what you get from api: JSON.parse(jsonString)
-
+/**
+ * Simone the Memory Game
+ */
 
 // references to index.html objects
 let background = document.querySelector("body");
@@ -36,8 +32,6 @@ let startSequence = [];
 let currentRound = 1;
 let turn = 0;
 let roundsInput = 0;
-
-
 
 // when this button is pressed, the game starts
 playButton.addEventListener("click", async function(){
@@ -135,64 +129,15 @@ playButton.addEventListener("click", async function(){
                 }, 4000)
         );
 
-        // playing the rounds of the game
-        for (let i=0; i<roundsInput; i++){
-            for (let j=0; j<currentRound; j++) {
-                let nextColor = gameSequence[j];
-                playColor(nextColor);
-                await new Promise((resolve) => 
-                        setTimeout(() => {
-                        resolve();
-                    }, 400)
-                );
-            }
-            
-
-        // everything works except code commented out: all other functions work
-            // basically what i want it to do: keep waiting for user to click things until they either get it wrong 
-            // or finish the round
-
-            // while turn <= currentRound
-            // wait
-            //
-            
-            // await new Promise((resolve) => 
-            //     setTimeout(() => {
-            //         console.log("in timeout")
-            //         turn == currentRound;
-            //         console.log("resolved");
-            //         resolve();
-            //     }, 100)
-            // );
-
-            window.setTimeout(turnCheck, 100);
-
-
-            currentRound++;
-            turn = 0;
-            status.innerHTML = "Good job! Prepare for next round.";
-            nextRoundSound.play();
-            await new Promise((resolve) => 
-                    setTimeout(() => {
-                    resolve();
-                }, 800)
-            );
-            status.innerHTML = "Round " + currentRound + " of " + roundsInput;
-            await new Promise((resolve) => 
-                    setTimeout(() => {
-                    resolve();
-                }, 800)
-            );
-    }
+        // to start the first round
+        playRound();
+        
     } catch (error) {
         console.log(error);
     }
 });
 
-
-
-
-// plays sound and changes color of designated color
+// this function plays sound and changes color of designated color
 async function playColor(color) {
     if (color == "G"){
         green.style.backgroundColor = "lightgreen";
@@ -243,7 +188,10 @@ function checkTurn(color) {
         winGame();
     } else {
         if (turn < currentRound) {
-            status.innerHTML = "So far so good! " + ((currentRound-turn)-1) + " more to go!";
+            status.innerHTML = "So far so good! " + (currentRound-turn) + " more to go!";
+        }
+        if (turn == currentRound) {
+            nextRound();
         }
     }
 }
@@ -264,12 +212,35 @@ function winGame() {
     return;
 }
 
-// function for checking if turn and currentRound are equal
-async function turnCheck() {
-    if (turn =! currentRound){
-        window.setTimeout(turnCheck, 100);
-    }
-    else {
-        return;
+// function for moving on to the next round
+async function nextRound() {
+    currentRound++;
+    turn = 0;
+    status.innerHTML = "Good job! Prepare for next round.";
+    nextRoundSound.play();
+    await new Promise((resolve) => 
+            setTimeout(() => {
+            resolve();
+        }, 800)
+    );
+    status.innerHTML = "Round " + currentRound + " of " + roundsInput;
+    await new Promise((resolve) => 
+            setTimeout(() => {
+            resolve();
+        }, 800)
+    );
+    playRound();
+}
+
+// function for playing the rounds of the game
+async function playRound() {
+    for (let j=0; j<currentRound; j++) {
+        let nextColor = gameSequence[j];
+        playColor(nextColor);
+        await new Promise((resolve) => 
+            setTimeout(() => {
+                resolve();
+            }, 400)
+        );
     }
 }
